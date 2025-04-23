@@ -1,28 +1,39 @@
 <?php
 
-class Tomato
+require "Tomato.php";
+
+class TomatoBush
 {
-    public const NOTHING = 0;
-    public const FLOWER = 1;
-    public const CREEN_TOMATO = 2;
-    public const RED_TOMATO = 3;
+    public array $tomatoes = [];
 
-    private int $index;
-    private int $state;
-
-    public function __construct(int $index)
+    public function __construct(int $numTomatoes)
     {
-        $this->index = $index;
-        $this->state = self::NOTHING;
-    }
-    public function grow(): void
-    {
-        if ($this->state < self::RED_TOMATO) {
-            $this->state++;
+        for ($i = 1; $i <= $numTomatoes; $i++) {
+            $this->tomatoes[] = new Tomato(index: $i);
         }
     }
-    public function isRipe(): bool
+
+    public function growAll(): void
     {
-        return $this->state === self::RED_TOMATO;
+        foreach ($this->tomatoes as $tomato) {
+            $tomato->grow();
+        }
+    }
+
+    public function allAreRipe(): bool
+    {
+        foreach ($this->tomatoes as $tomato) {
+            if (!$tomato->isRipe()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function giveAwayAll(): array
+    {
+        $giveAway = $this->tomatoes;
+        $this->tomatoes = [];
+        return $giveAway;
     }
 }

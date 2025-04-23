@@ -1,7 +1,5 @@
 <?php
 
-
-
 class Gardener
 {
     public string $name;
@@ -12,10 +10,12 @@ class Gardener
         $this->name = $name;
         $this->plant = $plant;
     }
+
     public function work(): void
     {
         $this->plant->growAll();
     }
+
     public function harvest(): void
     {
         if ($this->plant->allAreRipe()) {
@@ -25,6 +25,7 @@ class Gardener
             echo 'Томаты еще не созрели!' . PHP_EOL;
         }
     }
+
     public static function knowledgeBase(): void
     {
         echo "Справка по садоводству: " . PHP_EOL;
